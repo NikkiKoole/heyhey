@@ -1,0 +1,17 @@
+{
+  "name": "hey",
+  "version": "0.0.0",
+  "description": "the simplest way",
+  "main": "main.coffee",
+  "dependencies": {
+      "gl-matrix"     : "2.1.0",
+      "elementtree"   : "0.1.6",
+      "graphlib"      : "1.0.x",
+      "eventbus" : "0.0.3"
+    },
+    "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nikki Koole",
+  "license": "ISC"
+}
