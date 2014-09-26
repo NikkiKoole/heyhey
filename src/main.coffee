@@ -1,8 +1,6 @@
 #Floorplan = require '../../fp.engine2/src/floorplan/floorplan'
 #BBox = require '../../fp.engine2/src/util/bbox'
 {Floorplan, bbox} = require 'fp.engine2'
-console.log bbox
-#Floorplan = require 'fp.engine2'
 
 Channel = require './pubsub'
 Canvas = require './canvas'
@@ -53,14 +51,11 @@ window.onload = ->
     channel.subscribe 'move wall', (data) ->
         data.node.position.x -= data.deltaX
         data.node.position.y -= data.deltaY
-
-        console.log -data.deltaX/data.scale.x, -data.deltaX/data.scale.y
-        newWalls = floorplan.moveWall(data.node.represents, -data.deltaX/data.scale.x, -data.deltaX/data.scale.y)
-        #console.log newWalls
+        dx = -data.deltaX/data.scale.x
+        dy = -data.deltaX/data.scale.y
+        newWalls = floorplan.moveWall(data.node.represents, dx, dy)
+        console.log dx, dy, newWalls
         channel.publish 'render'
-
-
-
 
     Channel.get().publish('change room', {})
 
