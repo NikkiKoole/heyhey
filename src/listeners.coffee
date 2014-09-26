@@ -11,7 +11,6 @@ module.exports.wallListener = (node) ->
         @dy = @position.y - local.y
         Channel.get().publish 'start move wall', {node:@}
         
-        
     node.mouseup = node.mouseupoutside = node.touchend = node.touchendoutside = ->
         @dragging = false
         @data = null
