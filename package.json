@@ -7,7 +7,9 @@
       "gl-matrix"     : "2.1.0",
       "elementtree"   : "0.1.6",
       "graphlib"      : "1.0.x",
-      "http-server": "0.7.1"
+      "http-server": "0.7.1",
+      "fp.engine2"    : "git+ssh://git@github.com:floorplanner/fp.engine2#master"
+
     },
     "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

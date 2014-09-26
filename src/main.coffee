@@ -1,5 +1,8 @@
-Floorplan = require '../../fp.engine2/src/floorplan/floorplan'
-BBox = require '../../fp.engine2/src/util/bbox'
+#Floorplan = require '../../fp.engine2/src/floorplan/floorplan'
+#BBox = require '../../fp.engine2/src/util/bbox'
+{Floorplan, bbox} = require 'fp.engine2'
+console.log bbox
+#Floorplan = require 'fp.engine2'
 
 Channel = require './pubsub'
 Canvas = require './canvas'
@@ -19,7 +22,7 @@ window.onload = ->
     canvas = new Canvas() # a pixi powered canvas that draws the plan and receives user input (touch/mouse)
     sidebar = new SideBar() # a html based UI that dispatches events over the Channel
     channel = Channel.get()  # a Singleton channel over which all communication goes.
-    canvas.buildPlan(floorplan, BBox(floorplan))
+    canvas.buildPlan(floorplan, bbox(floorplan))
 
     # render
     channel.subscribe 'render', ->
