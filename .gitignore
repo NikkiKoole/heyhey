@@ -1,0 +1,8 @@
+
+build/
+.DS_Store
+*.coffee~
+*.coffee#
+bundle.js
+.bundle.js
+npm-debug.log
