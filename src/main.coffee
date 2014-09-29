@@ -1,7 +1,8 @@
-Floorplan = require '../../fp.engine2/src/floorplan/floorplan'
-bbox = require '../../fp.engine2/src/util/bbox'
-#{Floorplan, bbox} = require 'fp.engine2'
+#Floorplan = require '../../fp.engine2/src/floorplan/floorplan'
+#bbox = require '../../fp.engine2/src/util/bbox'
+{Floorplan, bbox} = require 'fp.engine2'
 eventBus = require './bus'
+
 Canvas = require './canvas'
 SideBar = require './sidebar'
 {example} = require '../resources/example_plan'
@@ -48,10 +49,6 @@ window.onload = ->
         info = floorplan.moveWall(data.node.represents, dx, dy)
         data.node.position.x += info.dx * data.scale.x
         data.node.position.y += info.dy * data.scale.y
-        #walls1 = floorplan._getWallsNear(data.node.represents.a[0],data.node.represents.a[1])
-        #walls2 = floorplan._getWallsNear(data.node.represents.b[0],data.node.represents.b[1])
-        #walls4 = (thing for thing in walls1 when thing isnt data.node.represents)
-        #console.log walls4
         eventBus.emit 'render'
 
 
