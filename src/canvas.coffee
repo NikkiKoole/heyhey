@@ -1,6 +1,4 @@
-Channel = require './pubsub'
 {wallListener, stageListener} = require './listeners'
-
 renderer = new PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight)
 document.body.appendChild renderer.view
 
@@ -18,7 +16,6 @@ getDistance = (start, end) ->
     xdiff = end[0] - start[0]
     ydiff = end[1] - start[1]
     Math.sqrt((xdiff * xdiff) + (ydiff * ydiff))
-
 
 module.exports = class Canvas extends PIXI.Stage
     constructor: ->

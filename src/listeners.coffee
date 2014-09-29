@@ -1,15 +1,15 @@
-Channel = require './pubsub'
+eventBus = require './bus'
 
+module.exports.itemListeners = (node) ->
+    0
 
 module.exports.wallListener = (node) ->
     node.mousedown = node.touchstart = (event) ->
         event.originalEvent.preventDefault()
         @data = event
         @dragging = true
-        local = @data.getLocalPosition(@parent)
-        @dx = @position.x - local.x
-        @dy = @position.y - local.y
-        Channel.get().publish 'start move wall', {node:@}
+        @point = @data.getLocalPosition(@parent)
+        eventBus.emit 'start move wall', {node:@}
         
     node.mouseup = node.mouseupoutside = node.touchend = node.touchendoutside = ->
         @dragging = false
@@ -18,10 +18,10 @@ module.exports.wallListener = (node) ->
     node.mousemove = node.touchmove = (event) ->
         if @dragging
             local = @data.getLocalPosition(@parent)
-            deltaX = @position.x - (local.x + @dx)
-            deltaY = @position.y - (local.y + @dy)
-            Channel.get().publish 'move wall', {node:@, deltaX:deltaX,deltaY:deltaY,scale:@parent.scale}
-                
+            deltaX = local.x - @point.x
+            deltaY = local.y - @point.y
+            @point = local
+            eventBus.emit 'move wall', {node:@, deltaX:deltaX,deltaY:deltaY,scale:@parent.scale}
 
 module.exports.stageListener = (node, container) ->
     node.mousedown = node.touchstart = (event) ->
@@ -40,4 +40,4 @@ module.exports.stageListener = (node, container) ->
             newpos = @data.getLocalPosition(node.parent)
             container.position.x = newpos.x + @dx
             container.position.y = newpos.y + @dy
-            Channel.get().publish 'render'
+            eventBus.emit 'render'
