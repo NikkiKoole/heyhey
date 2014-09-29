@@ -1,6 +1,6 @@
-Floorplan = require '../../fp.engine2/src/floorplan/floorplan'
-bbox = require '../../fp.engine2/src/util/bbox'
-#{Floorplan, bbox} = require 'fp.engine2'
+#Floorplan = require '../../fp.engine2/src/floorplan/floorplan'
+#bbox = require '../../fp.engine2/src/util/bbox'
+{Floorplan, bbox} = require 'fp.engine2'
 
 Channel = require './pubsub'
 Canvas = require './canvas'

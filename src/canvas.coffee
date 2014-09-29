@@ -1,8 +1,16 @@
 Channel = require './pubsub'
 {wallListener, stageListener} = require './listeners'
 
-renderer = new PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight)
-document.body.appendChild renderer.view
+pixiCanvas = document.getElementById('canvas')
+pixiCanvas.ondrop = (event) ->
+    event.preventDefault()
+    data = event.dataTransfer.getData("text/html")
+    console.log event
+pixiCanvas.ondragover = (event) ->
+    event.preventDefault()
+
+renderer = new PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, pixiCanvas)
+#document.body.appendChild renderer.view
 
 # shoud be in a line utils file
 getAngleBetweenTwoPoints = (start, end) ->
