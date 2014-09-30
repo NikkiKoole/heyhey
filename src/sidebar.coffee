@@ -29,7 +29,7 @@ module.exports = class SideBar
         button.className = 'imageButton'
         button.draggable = true
         button.ondragstart = (event) ->
-            event.dataTransfer.setData("text/html", event.target.id)
+            event.dataTransfer.setData("text/plain", event.target.id)
         button.onmousedown = ->
             console.log 'mousedown'
             

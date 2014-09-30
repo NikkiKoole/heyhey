@@ -3,8 +3,15 @@
 pixiCanvas = document.getElementById('canvas')
 pixiCanvas.ondrop = (event) ->
     event.preventDefault()
-    data = event.dataTransfer.getData("text/html")
-    console.log event
+    data = event.dataTransfer.getData("text/plain")
+    #console.log data, event
+    if data.indexOf('Room') is 0
+        console.log 'change Room'
+    else if data.indexOf('Furniture') is 0
+        console.log 'add Fruniture'
+    else if data.indexOf('Opening') is 0
+        console.log 'add Opening'
+   
 pixiCanvas.ondragover = (event) ->
     event.preventDefault()
 

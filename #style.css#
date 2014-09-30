@@ -27,8 +27,8 @@ canvas {
 
 .sidebar section{
      width:100%;
-     height:60px;
-     -webkit-transition:height 0.2s ease-out;
+     max-height:6000px;
+     -webkit-transition:max-height 0.2s ease-out;
      -moz-transition:height 0.2s ease-out;
      -o-transition:height 0.2s ease-out;
      transition:height 0.2s ease-out;

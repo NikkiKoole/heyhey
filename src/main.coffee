@@ -28,6 +28,9 @@ window.onload = ->
     # rooms
     eventBus.on 'change room', (data) ->
         0
+    #openings
+    channel.subscribe 'add opening', (data) ->
+        0
     # items
     eventBus.on 'add item', (data) ->
         0
