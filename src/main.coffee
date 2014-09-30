@@ -26,13 +26,13 @@ window.onload = ->
         0
     # rooms
     eventBus.on 'change room', (data) ->
-        console.log (data.data).replace('RoomShape','').replace('.png','')
+        buttonID = (data.button).replace('RoomShape','').replace('.png','')
+        console.log 'that was ID: ', buttonID
     #openings
     eventBus.on 'add opening', (data) ->
         0
     # items
     eventBus.on 'add item', (data) ->
-        console.log 'receiving add item', data
         canvas.addItem(data)
     eventBus.on 'transform item', (data) ->
         0

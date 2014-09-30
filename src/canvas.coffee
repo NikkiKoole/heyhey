@@ -7,9 +7,9 @@ pixiCanvas.ondrop = (event) ->
     event.preventDefault()
     data = event.dataTransfer.getData("text/plain")
     if data.indexOf('Room') is 0
-        eventBus.emit 'change room', {ev:event, data:data}
+        eventBus.emit 'change room', {ev:event, button:data}
     else if data.indexOf('Furniture') is 0
-        eventBus.emit 'add item', {ev:event, data:data}
+        eventBus.emit 'add item', {ev:event, button:data}
         
     else if data.indexOf('Opening') is 0
         console.log 'add Opening'
