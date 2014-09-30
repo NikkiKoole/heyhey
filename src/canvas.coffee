@@ -1,4 +1,6 @@
-{wallListener, stageListener} = require './listeners'
+{wallListener, stageListener, itemListener} = require './listeners'
+eventBus = require './bus'
+
 
 pixiCanvas = document.getElementById('canvas')
 pixiCanvas.ondrop = (event) ->
@@ -7,12 +9,16 @@ pixiCanvas.ondrop = (event) ->
     if data.indexOf('Room') is 0
         console.log 'change Room'
     else if data.indexOf('Furniture') is 0
-        console.log 'add Fruniture'
+        eventBus.emit 'add item', {ev:event, data:data}
+        
     else if data.indexOf('Opening') is 0
         console.log 'add Opening'
-   
+
 pixiCanvas.ondragover = (event) ->
     event.preventDefault()
+
+
+
 
 renderer = new PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, pixiCanvas)
 
@@ -34,6 +40,8 @@ getDistance = (start, end) ->
 module.exports = class Canvas extends PIXI.Stage
     constructor: ->
         super(0xff0000)
+        @drawnWalls = []
+        @drawnFurnitures = []
         @container = new PIXI.DisplayObjectContainer()
         @overlay = new PIXI.DisplayObjectContainer()
         @overlay.interactive = true
@@ -44,18 +52,54 @@ module.exports = class Canvas extends PIXI.Stage
         @render()
         
     render:->
+        @updateWalls()
         renderer.render @
 
+    addItem: (data)->
+        itemContainer = new PIXI.DisplayObjectContainer()
+        graphics = new PIXI.Graphics()
+        graphics.beginFill 0xfffff * Math.random()
+        graphics.drawRect 0,0,400,400
+        itemContainer.addChild graphics
+        @drawnFurnitures.push itemContainer
+        itemContainer.pivot = new PIXI.Point(0.5, 0,5)
+        itemContainer.rotation = (360) * Math.random()
+        itemContainer.position.x = (data.ev.pageX - @container.position.x) / @scale
+        itemContainer.position.y = (data.ev.pageY - @container.position.y) / @scale
+        @container.addChild itemContainer
+        itemContainer.hitArea = new PIXI.Rectangle(0,0,400,400)
+        itemContainer.interactive = true
+        itemListener itemContainer
+        
+        renderer.render @
+        
+    
     centreAndScalePlan: (bbox) ->
         scaleX = window.innerWidth / @getBBoxSize(bbox).width
         scaleY = window.innerHeight / @getBBoxSize(bbox).height
-        scale = Math.min(scaleX, scaleY) * 0.9
-        xOff = ( window.innerWidth / scale - @getBBoxSize(bbox).width ) / 2
-        yOff = ( window.innerHeight / scale - @getBBoxSize(bbox).height ) / 2
-        @container.scale.x = @container.scale.y = scale
-        @container.position.x = (-bbox.min.x + xOff) *scale
-        @container.position.y = (-bbox.min.y + yOff) *scale
+        @scale = Math.min(scaleX, scaleY) * 0.9
+        xOff = ( window.innerWidth / @scale - @getBBoxSize(bbox).width ) / 2
+        yOff = ( window.innerHeight / @scale - @getBBoxSize(bbox).height ) / 2
+        @container.scale.x = @container.scale.y = @scale
+        @container.position.x = (-bbox.min.x + xOff) * @scale
+        @container.position.y = (-bbox.min.y + yOff) * @scale
+
+    updateWalls: ->
+        for drawn in @drawnWalls
+            wall = drawn.represents
+            drawn.removeChildAt(0)
+            wallGraphics = new PIXI.Graphics()
+            wallGraphics.beginFill 0xffff00
+            wallGraphics.drawRect(0,0,getDistance(wall.a, wall.b), 50)
+            drawn.addChild wallGraphics
+            drawn.hitArea = new PIXI.Rectangle(0,0,getDistance(wall.a, wall.b), 50)
+            drawn.position.x = wall.a[0]
+            drawn.position.y = wall.a[1]
+            drawn.rotation = getAngleBetweenTwoPoints(wall.a, wall.b)
+            #@container.addChild wallContainer
             
+
+    
     buildPlan: (floorplan, bbox) ->
         for wall in floorplan.walls
             wallContainer = new PIXI.DisplayObjectContainer()
@@ -70,6 +114,7 @@ module.exports = class Canvas extends PIXI.Stage
             @container.addChild wallContainer
             wallContainer.interactive = true
             wallContainer.represents = wall
+            @drawnWalls.push wallContainer
             wallListener wallContainer
         @centreAndScalePlan(bbox)
         @render()

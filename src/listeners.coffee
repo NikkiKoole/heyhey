@@ -1,7 +1,31 @@
 eventBus = require './bus'
 
-module.exports.itemListeners = (node) ->
-    0
+module.exports.itemListener = (node) ->
+    node.click = node.tap = 
+    
+    node.mousedown = node.touchstart = (event) ->
+        
+        event.originalEvent.preventDefault()
+        @data = event
+        @dragging = true
+        @point = @data.getLocalPosition(@parent)
+        #eventBus.emit 'start move wall', {node:@}
+        
+    node.mouseup = node.mouseupoutside = node.touchend = node.touchendoutside = ->
+        @dragging = false
+        @data = null
+
+    node.mousemove = node.touchmove = (event) ->
+        if @dragging
+            local = @data.getLocalPosition(@parent)
+            deltaX = local.x - @point.x
+            deltaY = local.y - @point.y
+            @point = local
+            console.log 'asdadsaqdasdasdasd'
+            node.position.x += deltaX
+            node.position.y += deltaY
+            eventBus.emit 'render'
+            #eventBus.emit 'move wall', {node:@, deltaX:deltaX,deltaY:deltaY,scale:@parent.scale}   
 
 module.exports.wallListener = (node) ->
     node.mousedown = node.touchstart = (event) ->

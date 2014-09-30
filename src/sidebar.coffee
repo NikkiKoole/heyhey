@@ -22,6 +22,7 @@ module.exports = class SideBar
             sec.appendChild p
             (@buildButton section.buttonImages[key], p, key) for own key of section.buttonImages
             @side.appendChild sec
+        colorpicker = document.createElement('div')
          
     buildButton: (data, container, key)->
         #console.log data, container

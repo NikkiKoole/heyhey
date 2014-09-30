@@ -21,7 +21,6 @@ window.onload = ->
     # render
     eventBus.on 'render', ->
         canvas.render()
-    
     # drawmode
     eventBus.on 'change drawmode', (data) ->
         0
@@ -33,7 +32,8 @@ window.onload = ->
         0
     # items
     eventBus.on 'add item', (data) ->
-        0
+        console.log 'receiving add item', data
+        canvas.addItem(data)
     eventBus.on 'transform item', (data) ->
         0
     eventBus.on 'delete item', (data) ->
@@ -47,11 +47,8 @@ window.onload = ->
         floorplan._beforeMoveWall(data.node.represents)
     
     eventBus.on 'move wall', (data) ->
-        dx = data.deltaX / data.scale.x
-        dy = data.deltaY / data.scale.y
-        info = floorplan.moveWall(data.node.represents, dx, dy)
-        data.node.position.x += info.dx * data.scale.x
-        data.node.position.y += info.dy * data.scale.y
+        info = floorplan.moveWall(data.node.represents, data.deltaX, data.deltaY)
+        # if info would contain extra walls here I can update the sysytem  about that.
         eventBus.emit 'render'
 
 
