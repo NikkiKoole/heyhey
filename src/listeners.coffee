@@ -21,7 +21,6 @@ module.exports.itemListener = (node) ->
             deltaX = local.x - @point.x
             deltaY = local.y - @point.y
             @point = local
-            console.log 'asdadsaqdasdasdasd'
             node.position.x += deltaX
             node.position.y += deltaY
             eventBus.emit 'render'

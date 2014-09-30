@@ -26,7 +26,7 @@ window.onload = ->
         0
     # rooms
     eventBus.on 'change room', (data) ->
-        0
+        console.log (data.data).replace('RoomShape','').replace('.png','')
     #openings
     eventBus.on 'add opening', (data) ->
         0
