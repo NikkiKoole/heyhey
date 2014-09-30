@@ -25,17 +25,17 @@ canvas {
       overflow:hidden;
 }
 
-.sidebar section{
-     width:100%;
-     height:60px;
-     -webkit-transition:height 0.2s ease-out;
-     -moz-transition:height 0.2s ease-out;
-     -o-transition:height 0.2s ease-out;
-     transition:height 0.2s ease-out;
-}
+/* .sidebar section{ */
+/*      width:100%; */
+/*      height:60px; */
+/*      -webkit-transition:height 0.2s ease-out; */
+/*      -moz-transition:height 0.2s ease-out; */
+/*      -o-transition:height 0.2s ease-out; */
+/*      transition:height 0.2s ease-out; */
+/* } */
 
-.sidebar :target{
-     height:300px;
-     width:100%;
-}
+/* .sidebar :target{ */
+/*      height:300px; */
+/*      width:100%; */
+/* } */
 
