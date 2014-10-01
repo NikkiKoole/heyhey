@@ -1,6 +1,6 @@
 sectionData = [
   {
-    "title":"Raumformen",
+    "title":"RAUMFORMEN",
     "content":""
     "buttonImages":
         "RoomShape1.png": {"x":184,"y":46,"w":46,"h":46}
@@ -17,7 +17,7 @@ sectionData = [
         "RoomShape12.png": {"x":0,"y":184,"w":46,"h":46}
   },
   {
-    "title":"Möbel",
+    "title":"MÖBEL",
     "content":""
     "buttonImages":
         "FurnitureShape2.png": {"x":0,"y":92,"w":46,"h":46}
@@ -36,7 +36,7 @@ sectionData = [
         "FurnitureShape15.png": {"x":92,"y":46,"w":46,"h":46}
   },
   {
-    "title":"Türen und fenster",
+    "title":"TÜREN & FENSTER",
     "content":""
     "buttonImages":
          "OpeningShape1.png": {"x":0,"y":0,"w":46,"h":46}

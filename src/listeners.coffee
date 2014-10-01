@@ -1,7 +1,8 @@
 eventBus = require './bus'
 
 module.exports.itemListener = (node) ->
-    node.click = node.tap = 
+    node.click = node.tap = ->
+        0
     
     node.mousedown = node.touchstart = (event) ->
         
@@ -12,6 +13,7 @@ module.exports.itemListener = (node) ->
         #eventBus.emit 'start move wall', {node:@}
         
     node.mouseup = node.mouseupoutside = node.touchend = node.touchendoutside = ->
+        
         @dragging = false
         @data = null
 
